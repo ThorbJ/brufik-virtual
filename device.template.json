@@ -1,5 +1,5 @@
 {
-  "formatVersion": 1,
+  "formatVersion": 2,
   "device": { "id": "brufik" },
   "appliesTo": { "kit": "kit_brufik_v2", "options": [] },
   "firmware": {
@@ -12,27 +12,44 @@
   "channels": { "in": ["mic", "camera", "hostRx", "hostPresent"], "out": ["screen", "servo", "speaker", "hostTx", "log"] },
   "screen": {
     "node": "lcd",
+    "face": { "path": [0, 17, 0], "primitive": 0 },
     "panel": { "width": 240, "height": 284, "format": "rgb565" },
     "rotateCW": 270,
+    "flipY": true,
     "area": { "x": 0, "y": 0.015327, "width": 1, "height": 0.969345 },
     "background": "#000000"
   },
   "servos": [
     {
       "id": 0,
-      "nodes": [
-        "neck-shaft", "head-front", "head-back", "lcd", "screen-pcb", "servo-9g",
-        "screw-m2x5-01", "screw-m2x5-02", "screw-m2x5-03", "screw-m2x5-04", "screw-m2x5-05", "screw-m2x5-06", "screw-m2x5-07", "screw-m2x5-08",
-        "screw-m2x8-01", "screw-m2x8-02", "screw-m2x8-08", "screw-m2x8-09", "screw-m2x8-10"
-      ],
+      "nodes": ["neck-shaft", "servo-9g", { "node": "internal-pack", "path": [7] }],
       "pivot": { "node": "neck-shaft" },
       "axis": [0, 1, 0],
       "zeroDeg": 90,
       "direction": 1,
       "scale": 0.416667,
       "approximate": {
-        "zh": "头和颈左右转动的幅度按舵机脉宽和齿轮齿数估算（约 ±29°），未经真机核实；头的俯仰暂不显示。",
-        "en": "How far the head and neck turn is estimated from the servo pulse widths and the gear teeth (about ±29°), not measured on a real Brufik; the head's tilt is not shown yet."
+        "zh": "头和颈左右转动的幅度按舵机脉宽和齿轮齿数估算（约 ±29°），未经真机核实。",
+        "en": "How far the head and neck turn is estimated from the servo pulse widths and the gear teeth (about ±29°), not measured on a real Brufik."
+      }
+    },
+    {
+      "id": 1,
+      "parent": 0,
+      "nodes": [
+        "head-front", "head-back", "lcd", "screen-pcb",
+        { "node": "internal-pack", "path": [8] }, { "node": "internal-pack", "path": [9] }, { "node": "internal-pack", "path": [10] }, { "node": "internal-pack", "path": [11] },
+        "screw-m2x5-01", "screw-m2x5-02", "screw-m2x5-03", "screw-m2x5-04", "screw-m2x5-05", "screw-m2x5-06", "screw-m2x5-07", "screw-m2x5-08",
+        "screw-m2x8-01", "screw-m2x8-02", "screw-m2x8-08", "screw-m2x8-09", "screw-m2x8-10"
+      ],
+      "pivot": [15, 87.11, -2],
+      "axis": [1, 0, 0],
+      "zeroDeg": 90,
+      "direction": 1,
+      "scale": 1,
+      "approximate": {
+        "zh": "头的俯仰绕 9 g 舵机输出轴（按套件模型里舵盘的位置）1:1 转动，方向按上游固件（逻辑角 70 为低头到底），未经真机核实。",
+        "en": "The head tilts 1:1 about the 9 g servo's output shaft (where the Kit model has the horn), in the direction of the upstream firmware (logical 70° = head fully down); not measured on a real Brufik."
       }
     }
   ],

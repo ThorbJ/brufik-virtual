@@ -5,12 +5,17 @@
   "description": "Brufik (OpenDeskBotV2) running its real firmware on virtual hardware in the browser (unofficial).",
   "license": "GPL-3.0-only",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "package": "node build.mjs",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs"
   },
   "dependencies": {
-    "esp32-virtual-hardware": "github:ThorbJ/esp32-virtual-hardware#f78e31a4c4743a4037d3bd3954c4075875731ca4"
+    "esp32-virtual-hardware": "github:ThorbJ/esp32-virtual-hardware#407ef35f59a84317ec8464b56637c94f5ebf32e0"
+  },
+  "devDependencies": {
+    "three": "0.187.0"
   }
 }

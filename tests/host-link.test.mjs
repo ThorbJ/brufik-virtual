@@ -77,6 +77,8 @@ test('an expression + audio PB from the computer: the screen draws the sent face
     assert.ok(sawColour[RED], 'the first face (red eyes) was not drawn');
     assert.ok(sawColour[GREEN], 'the second face (green eyes) was not drawn');
     assert.equal(speaker[0]?.sampleRate, 16000);
+    const times = speaker.map((s) => s.t);
+    assert.ok(times.every((t, i) => Number.isFinite(t) && (i === 0 || t >= times[i - 1])), `speaker chunks carry the device time: ${times.slice(0, 5)}`);
     const mono = firstChannel(speaker);
     const win = 320; // 20 ms
     const loud = [];

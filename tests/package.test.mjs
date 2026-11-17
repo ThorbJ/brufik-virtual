@@ -1,9 +1,9 @@
-// The package seam: the file `npm run package` makes is what the shop's checker receives (device description format v1).
+// The package seam: the file `npm run package` makes is what the shop's checker receives (device description format 2).
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { checkNodesInModel, checkPackageFiles, glbNodeNames, validateDeviceDescription } from 'esp32-virtual-hardware/device-description';
+import { checkNodesInModel, checkPackageFiles, validateDeviceDescription } from 'esp32-virtual-hardware/device-description';
 import { servoJointAngle } from 'esp32-virtual-hardware/runtime';
 import { kitModel } from '../kit-model.mjs';
 import { brufikPackage } from './lib/package.mjs';
@@ -20,9 +20,11 @@ test('the package passes the device description validator and its files match th
   assert.deepEqual(await checkPackageFiles(description, files), []);
 });
 
-test('every node the description names is in the current Brufik Kit model', async () => {
+test('every node the description names is in the current Brufik Kit model, and the screen face is a textured mesh there', async () => {
   const { description } = await brufikPackage();
-  assert.deepEqual(checkNodesInModel(description, glbNodeNames(await kitModel())), []);
+  assert.equal(description.formatVersion, 2);
+  assert.deepEqual(description.screen.face, { path: [0, 17, 0], primitive: 0 }); // lcd → lcd-module → child 17 → the face mesh
+  assert.deepEqual(checkNodesInModel(description, await kitModel()), []);
 });
 
 test('the description names the pinned upstream firmware, this repository and the licence', async () => {
@@ -56,12 +58,13 @@ test('the firmware files carry no local folder paths of the machine that built t
   }
 });
 
-test('servo X turns the head and neck about the vertical neck axis, about ±29° at the firmware limits 20–160°', async () => {
+test('servo X turns the neck, and the head on it (through servo Y), about the vertical neck axis, about ±29° at the firmware limits 20–160°', async () => {
   const { description: d } = await brufikPackage();
   const x = d.servos.find((s) => s.id === 0);
   assert.deepEqual(x.pivot, { node: 'neck-shaft' });
   assert.deepEqual(x.axis, [0, 1, 0]);
-  for (const n of ['head-front', 'head-back', 'lcd', 'neck-shaft']) assert.ok(x.nodes.includes(n), `${n} turns with servo X`);
+  assert.ok(x.nodes.includes('neck-shaft'));
+  assert.equal(d.servos.find((s) => s.id === 1).parent, 0, 'the head (servo Y) rides on servo X');
   // worked example: 160° → (160 − 90) × 0.5 (1000–2000 µs is half the servo's travel) × 30/36 (gears) = 29.17° toward Brufik's left (+Y)
   assert.ok(Math.abs(servoJointAngle(x, 160) - 29.17) < 0.01, `${servoJointAngle(x, 160)}`);
   assert.ok(Math.abs(servoJointAngle(x, 20) + 29.17) < 0.01, `${servoJointAngle(x, 20)}`);

@@ -15,7 +15,7 @@ import { execFileSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { checkNodesInModel, glbNodeNames } from 'esp32-virtual-hardware/device-description';
+import { checkNodesInModel } from 'esp32-virtual-hardware/device-description';
 import { buildPackage } from 'esp32-virtual-hardware/package';
 import { compileAll, link } from 'esp32-virtual-hardware/tools/emcc-build.mjs';
 import { firmwareLinkFlags, vhwCompileFlags, vhwUnits } from 'esp32-virtual-hardware/tools/firmware.mjs';
@@ -168,8 +168,8 @@ description.firmware.upstream.commit = upstream.lock.sources.OpenDeskBotV2.commi
 description.firmware.virtualDevice.commit = head;
 description.firmware.license.files = LICENCES.map(([p]) => p);
 
-const nodeIssues = checkNodesInModel(description, glbNodeNames(await kitModel()));
-if (nodeIssues.length) throw new Error(`nodes not in the Kit model:\n${nodeIssues.map((i) => `  ${i.path}: ${i.message}`).join('\n')}`);
+const nodeIssues = checkNodesInModel(description, await kitModel());
+if (nodeIssues.length) throw new Error(`the description does not fit the Kit model:\n${nodeIssues.map((i) => `  ${i.path}: ${i.message}`).join('\n')}`);
 
 const { archive } = await buildPackage({ description, files });
 mkdirSync(packageDir, { recursive: true });
