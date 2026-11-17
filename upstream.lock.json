@@ -1,0 +1,103 @@
+{
+  "comment": "Upstream sources, each pinned by commit. build.mjs fetches them shallowly into .upstream/ (git-ignored) and compiles them as they are.",
+  "sources": {
+    "OpenDeskBotV2": {
+      "url": "https://github.com/ai-maker-lab/OpenDeskBotV2",
+      "commit": "1cf5050ee63b1fe4cae6b7815e565a0955f15bd6",
+      "licence": "GPL-3.0",
+      "usedBy": [
+        "brufik"
+      ],
+      "note": "Firmware hardware/firmware (PlatformIO env deskbot_v2), VERSION 0.0.59. The commit the Brufik Kit records name as the current upstream software (see README, Firmware version).",
+      "sparse": [
+        "hardware"
+      ]
+    },
+    "arduino-esp32": {
+      "url": "https://github.com/espressif/arduino-esp32",
+      "commit": "ee98cf3ca1bccebcfb9e74ed906b51983e416202",
+      "tag": "3.3.2",
+      "sparse": [
+        "cores/esp32",
+        "libraries/Preferences",
+        "libraries/FS",
+        "libraries/FFat"
+      ],
+      "usedBy": [
+        "brufik"
+      ],
+      "note": "OpenDeskBotV2 platformio.ini pins pioarduino 55.03.32 = arduino-esp32 3.3.2; only the portable String/Print/Stream/Preferences/FS sources are compiled."
+    },
+    "libs/Adafruit-GFX-Library": {
+      "url": "https://github.com/adafruit/Adafruit-GFX-Library",
+      "commit": "ac6d7c3869a693d406f77b9bfcd486b0673169f0",
+      "tag": "1.12.6",
+      "usedBy": [
+        "brufik"
+      ]
+    },
+    "libs/Adafruit-ST7735-Library": {
+      "url": "https://github.com/adafruit/Adafruit-ST7735-Library",
+      "commit": "62112b90eddcb2ecc51f474e9fe98b68eb26cb2a",
+      "tag": "1.11.0",
+      "usedBy": [
+        "brufik"
+      ],
+      "licence": "MIT",
+      "licenceFile": "README.txt",
+      "licenceNote": "No separate licence file: the MIT notice is in README.txt (shipped as is)."
+    },
+    "libs/Adafruit_BusIO": {
+      "url": "https://github.com/adafruit/Adafruit_BusIO",
+      "commit": "3b8364267c3ee6e16bad91bc2101aefbd5b5915f",
+      "tag": "1.17.4",
+      "usedBy": [
+        "brufik"
+      ],
+      "note": "Headers only (Adafruit_GFX.h includes them)."
+    },
+    "libs/ArduinoJson": {
+      "url": "https://github.com/bblanchon/ArduinoJson",
+      "commit": "77771d3c07668e01d8f52acb03910c1110bb373f",
+      "tag": "v7.4.3",
+      "usedBy": [
+        "brufik"
+      ]
+    },
+    "libs/JPEGDEC": {
+      "url": "https://github.com/bitbank2/JPEGDEC",
+      "commit": "ae9705abeeebd057c3d0a50c1e58bdec532c76c6",
+      "tag": "1.8.4",
+      "usedBy": [
+        "brufik"
+      ]
+    },
+    "libs/U8g2_for_Adafruit_GFX": {
+      "url": "https://github.com/olikraus/U8g2_for_Adafruit_GFX",
+      "commit": "82d2b3eea866e7d40266672b41e5c8306ee97403",
+      "usedBy": [
+        "brufik"
+      ]
+    },
+    "libs/esp32_opus_arduino": {
+      "url": "https://github.com/sh123/esp32_opus_arduino",
+      "commit": "a3816682932b8792f90072ee05c33fe25c055628",
+      "usedBy": [
+        "brufik"
+      ]
+    },
+    "libs/libfvad": {
+      "url": "https://github.com/dpirch/libfvad",
+      "commit": "532ab666c20d3cfda38bca63abbb0f152706c369",
+      "licence": "BSD-3-Clause",
+      "sparse": [
+        "include",
+        "src"
+      ],
+      "usedBy": [
+        "brufik"
+      ],
+      "note": "Open-source WebRTC VAD, stands in for the VAD inside the closed ESP-SR library (vhw/src/esp_afe_vhw.c)."
+    }
+  }
+}

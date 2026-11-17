@@ -1,0 +1,7 @@
+{
+  "comment": "The Kit model the device description's node names refer to: the shop's current Kit model of Brufik V2 (published on thorb.com, 1,782,748 bytes). kit-model.mjs downloads it once into .cache/ and checks the sha256. When the shop replaces the Kit model, update url, size and sha256 here and rebuild the package (npm run package checks the nodes).",
+  "kit": "kit_brufik_v2",
+  "url": "https://thorb.com/media/brufik/01m7emqk1cqxx9nqc7rj67n23w.glb",
+  "size": 1782748,
+  "sha256": "1ce94a5f4bfd8743550c62a2682c430a26bdd46ba2a61716384a7e9e6e0dd591"
+}

@@ -1,0 +1,41 @@
+{
+  "formatVersion": 1,
+  "device": { "id": "brufik" },
+  "appliesTo": { "kit": "kit_brufik_v2", "options": [] },
+  "firmware": {
+    "version": "<hardware/VERSION of the upstream commit, filled in by build.mjs>",
+    "upstream": { "repo": "https://github.com/ai-maker-lab/OpenDeskBotV2", "commit": "<upstream.lock.json, filled in by build.mjs>" },
+    "virtualDevice": { "repo": "https://github.com/ThorbJ/brufik-virtual", "commit": "<git HEAD, filled in by build.mjs>" },
+    "license": { "spdx": "GPL-3.0-only", "unofficial": true, "files": ["<filled in by build.mjs>"] }
+  },
+  "runtime": { "interfaceVersion": 3, "module": "firmware/brufik.mjs", "memoryMB": 512, "threads": 28, "virtualTime": true },
+  "channels": { "in": ["mic", "camera", "hostRx", "hostPresent"], "out": ["screen", "servo", "speaker", "hostTx", "log"] },
+  "screen": {
+    "node": "lcd",
+    "panel": { "width": 240, "height": 284, "format": "rgb565" },
+    "rotateCW": 270,
+    "area": { "x": 0, "y": 0.015327, "width": 1, "height": 0.969345 },
+    "background": "#000000"
+  },
+  "servos": [
+    {
+      "id": 0,
+      "nodes": [
+        "neck-shaft", "head-front", "head-back", "lcd", "screen-pcb", "servo-9g",
+        "screw-m2x5-01", "screw-m2x5-02", "screw-m2x5-03", "screw-m2x5-04", "screw-m2x5-05", "screw-m2x5-06", "screw-m2x5-07", "screw-m2x5-08",
+        "screw-m2x8-01", "screw-m2x8-02", "screw-m2x8-08", "screw-m2x8-09", "screw-m2x8-10"
+      ],
+      "pivot": { "node": "neck-shaft" },
+      "axis": [0, 1, 0],
+      "zeroDeg": 90,
+      "direction": 1,
+      "scale": 0.416667,
+      "approximate": {
+        "zh": "头和颈左右转动的幅度按舵机脉宽和齿轮齿数估算（约 ±29°），未经真机核实；头的俯仰暂不显示。",
+        "en": "How far the head and neck turn is estimated from the servo pulse widths and the gear teeth (about ±29°), not measured on a real Brufik; the head's tilt is not shown yet."
+      }
+    }
+  ],
+  "hostLink": { "port": 9022, "path": "/virtual-device", "protocol": "DBOT v1" },
+  "mic": { "sampleRate": 16000 }
+}
